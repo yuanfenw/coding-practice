@@ -1,0 +1,72 @@
+# implemented two string related functions
+
+
+Hello!
+
+
+INT strcspn(STRING input, STRING delim)
+
+strcspn("monkey", "rtk") -> 3 (the length of "mon")
+strcspn("monkey", "rtkm") -> 0
+strcspn("monkey", "rt") -> 6
+
+def strcspn(input,delim):
+    delim_dict = {}
+    for d in delim:
+       delim_dict[d] = 1
+    for j in range(len(input)):
+       if delim_dict.has_key(input[j]):
+           return j
+    return j+1
+
+
+STRING strtok(STRING input, STRING delim)
+
+strtok("cat,dog,mouse", ",") -> "cat"
+strtok(NULL, ",") -> "dog"
+strtok(NULL, ",") -> "mouse"
+strtok(NULL, ",") -> NULL
+strtok(NULL, ",") -> NULL
+strtok(NULL, ",") -> NULL
+
+strtok(".,.,.cat,,,,dog;;;mouse,;.", ",.") -> "cat"
+strtok(NULL, ",;") -> "dog"
+// at this point, left with the string ";;;mouse,;."
+strtok(NULL, ";,") -> "mouse"  
+strtok(NULL, ".;,") -> NULL
+
+
+def strtok(input, delim):
+    input = input.strip()
+    if len(delim) ==1:
+       pos_d = strcspn( input, delim)
+       if pos_d == len(input) or len(input)<=0:
+          return NULL
+       else
+          return input[:pos_d]
+    elif len(delim) == 2:
+       pos_d1 = strcspn( input, delim[0])
+       pos_d2 = strcspn( input, delim[1])
+       if pos_d1 == len(input) or pos_d2 == len(input) or len(input)<=0:
+           return NULL
+       else
+           return input[pos_d1, pos_d2]
+
+global currinput
+
+def  strtok(input, delim):
+    i==0
+    pos1 = NULL
+    while i < len(input): 
+        
+        if (i==0 and not (input[0] in delim)) or ( input[i] in delim and not(input[i+1] in delim)):
+            pos1 = i
+        elif not(input[i] in delim) and input[i+1] in delim and pos1 is not NULL:
+            pos2 = i
+            currinput = input[pos2 + 1:]
+
+            tmp =  input[pos1 + 1 : pos2 + 1]
+            pos1 = NULL
+            return tmp
+        i += 1
+
